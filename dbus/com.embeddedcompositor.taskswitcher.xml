@@ -5,6 +5,9 @@
 
 <method name="Open"/>
 <method name="Close"/>
-
+<property name="CurrentView" type="i" access="readwrite"/>
+<method name="GetViews">
+    <arg type="a(uus)" name="views" direction="out">
+</method>
 </interface>
 </node>

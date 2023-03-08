@@ -3,6 +3,7 @@
 #include "dbusinterface.h"
 #include "embeddedshellextension.h"
 #include "notificationmodel.h"
+#include <QDBusMetaType>
 #include <QtCore/QDebug>
 #include <QtCore/QUrl>
 #include <QtGui/QGuiApplication>
@@ -21,8 +22,11 @@ int main(int argc, char *argv[]) {
   qmlRegisterUncreatableType<EmbeddedShellSurfaceView>(
       "com.embeddedcompositor.embeddedshell", 1, 0, "SurfaceView",
       "managed by wayland");
+
   qmlRegisterType<TaskSwitcherInterface>("com.embeddedcompositor.dbus", 1, 0,
                                          "TaskSwitcherInterface");
+  qDBusRegisterMetaType<TaskSwitcherInterface::TaskSwitcherEntry>();
+
   qmlRegisterType<GlobalOverlayInterface>("com.embeddedcompositor.dbus", 1, 0,
                                           "GlobalOverlayInterface");
 

@@ -3,6 +3,7 @@
 #ifndef DBUSINTERFACE_H
 #define DBUSINTERFACE_H
 
+#include <QDBusArgument>
 #include <QDBusConnection>
 #include <QDBusContext>
 #include <QLoggingCategory>
@@ -59,10 +60,28 @@ public:
     void Open();
     void Close();
 
+  struct TaskSwitcherEntry {
+    int id;
+    int pid;
+    QString label;
+  };
+
+public slots:
+  QList<TaskSwitcherEntry> Views();
+  TaskSwitcherEntry CurrentView();
+
 Q_SIGNALS:
     void openRequested();
     void closeRequested();
 };
+
+QDBusArgument &
+operator<<(QDBusArgument &argument,
+           const TaskSwitcherInterface::TaskSwitcherEntry &entry);
+
+const QDBusArgument &
+operator>>(const QDBusArgument &argument,
+           TaskSwitcherInterface::TaskSwitcherEntry &entry);
 
 class GlobalOverlayInterface : public DBusInterface
 {

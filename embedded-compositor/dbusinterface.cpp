@@ -3,6 +3,7 @@
 #include "dbusinterface.h"
 #include "dbus-selector.h"
 #include <QDBusConnection>
+#include <QDBusError>
 #include <QDebug>
 #include <QMetaObject>
 
@@ -145,6 +146,35 @@ void TaskSwitcherInterface::Open()
 void TaskSwitcherInterface::Close()
 {
     Q_EMIT closeRequested();
+}
+
+QList<TaskSwitcherInterface::TaskSwitcherEntry> TaskSwitcherInterface::Views() {
+  return {
+      {42, 4711, "test entry1"},
+      {69, 1337, "test entry2"},
+  };
+}
+
+TaskSwitcherInterface::TaskSwitcherEntry TaskSwitcherInterface::CurrentView() {
+  return {123, 456, "test entry1"};
+}
+
+QDBusArgument &
+operator<<(QDBusArgument &argument,
+           const TaskSwitcherInterface::TaskSwitcherEntry &entry) {
+  argument.beginStructure();
+  argument << entry.id << entry.pid << entry.label;
+  argument.endStructure();
+  return argument;
+}
+
+const QDBusArgument &
+operator>>(const QDBusArgument &argument,
+           TaskSwitcherInterface::TaskSwitcherEntry &entry) {
+  argument.beginStructure();
+  argument >> entry.id >> entry.pid >> entry.label;
+  argument.endStructure();
+  return argument;
 }
 
 GlobalOverlayInterface::GlobalOverlayInterface(QObject *parent)

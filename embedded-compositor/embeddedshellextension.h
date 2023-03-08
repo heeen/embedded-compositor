@@ -63,11 +63,13 @@ public:
       EmbeddedShellTypes::Anchor anchor READ getAnchor NOTIFY anchorChanged)
   Q_PROPERTY(int margin READ getMargin NOTIFY marginChanged)
   Q_PROPERTY(int sortIndex READ sortIndex NOTIFY sortIndexChanged)
+  Q_PROPERTY(int id READ getId CONSTANT)
 
   void setAnchor(embedded_shell_anchor_border newAnchor);
   void setMargin(int newMargin);
   void setSortIndex(int sort_index);
   Q_INVOKABLE void sendConfigure(const QSize size);
+  uint32_t getId() const;
 
 signals:
   void anchorChanged(EmbeddedShellTypes::Anchor anchor);
@@ -100,6 +102,7 @@ class EmbeddedShellSurfaceView : public QObject,
   Q_OBJECT
   Q_PROPERTY(QString label READ label WRITE setLabel NOTIFY labelChanged)
   Q_PROPERTY(int sortIndex READ sortIndex NOTIFY sortIndexChanged)
+  Q_PROPERTY(int id READ getId CONSTANT)
 public:
   EmbeddedShellSurfaceView(const QString &label, int32_t sort_index,
                            wl_client *client, int id, int version)
@@ -110,6 +113,8 @@ public:
 
   int sortIndex() const;
   void setSortIndex(int newSortIndex);
+
+  uint32_t getId() const;
 
 public slots:
   void select() { surface_view::send_selected(); }

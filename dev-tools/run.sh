@@ -9,7 +9,7 @@ if [ $(arch) = "armv7l" ]; then
 else
     echo "running on dev host"
     export $(dbus-launch)
-    #qdbusviewer &
+    qdbusviewer &
     BUILD_ROOT=/home/florian/basyskom/build-compositor-Desktop-Debug
 	export QT_ENABLE_HIGHDPI_SCALING=0
 	export QT_SCREEN_SCALE_FACTORS=
@@ -22,7 +22,7 @@ else
 fi
 
 
-#export QDBUS_DEBUG=1
+export QDBUS_DEBUG=1
 export QT_LOGGING_RULES="embeddedshell.compositor.debug=false;embeddedshell.quick=false"
 SCREEN_ORIENTATION=0 $BUILD_ROOT/embedded-compositor/embedded-compositor &
 compositor_pid=$!
