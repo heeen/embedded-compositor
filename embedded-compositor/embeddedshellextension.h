@@ -70,6 +70,7 @@ public:
   void setSortIndex(int sort_index);
   Q_INVOKABLE void sendConfigure(const QSize size);
   uint32_t getId() const;
+  pid_t getClientPid() const;
 
 signals:
   void anchorChanged(EmbeddedShellTypes::Anchor anchor);

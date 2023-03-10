@@ -103,6 +103,14 @@ uint32_t EmbeddedShellSurface::getId() const {
   return wl_resource_get_id(resource()->handle);
 }
 
+pid_t EmbeddedShellSurface::getClientPid() const {
+  pid_t pid;
+  uid_t uid;
+  gid_t gid;
+  wl_client_get_credentials(resource()->client(), &pid, &uid, &gid);
+  return pid;
+}
+
 QuickEmbeddedShellIntegration::QuickEmbeddedShellIntegration(
     QWaylandQuickShellSurfaceItem *item)
     : QWaylandQuickShellIntegration(item), m_item(item),

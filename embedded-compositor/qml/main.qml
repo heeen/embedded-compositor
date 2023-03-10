@@ -214,7 +214,7 @@ WaylandCompositor {
             }
 
             function handleAnchor() {
-                console.log("handleAnchor anchor:"+shellSurface.anchor+" size "+width+"x"+height+" parent: "+shellSurfaceItem.parent);
+//                console.log("handleAnchor anchor:"+shellSurface.anchor+" size "+width+"x"+height+" parent: "+shellSurfaceItem.parent);
                 var targetArea = anchorMap[shellSurface.anchor];
 
                 if(shellSurface.anchor === EmbeddedShellTypes.Center) {
@@ -237,7 +237,7 @@ WaylandCompositor {
             }
 
             function handleResized() {
-                console.log("handleResize anchor:"+shellSurface.anchor+" size "+width+"x"+height+" parent: "+shellSurfaceItem.parent);
+//                console.log("handleResize anchor:"+shellSurface.anchor+" size "+width+"x"+height+" parent: "+shellSurfaceItem.parent);
                 if(width <= 0 || height <=0) return;
                 shellSurface.sendConfigure(Qt.size(width, height));
             }
@@ -255,6 +255,7 @@ WaylandCompositor {
     TaskSwitcherInterface {
         onOpenRequested: taskSwitcherLoader.item.open();
         onCloseRequested: taskSwitcherLoader.item.close();
+        viewModel: centerApplicationViewModel
     }
     GlobalOverlayInterface {
         onShowRequested: (message) => {

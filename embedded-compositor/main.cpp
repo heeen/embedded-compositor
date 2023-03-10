@@ -23,9 +23,16 @@ int main(int argc, char *argv[]) {
       "com.embeddedcompositor.embeddedshell", 1, 0, "SurfaceView",
       "managed by wayland");
 
+  qmlRegisterUncreatableType<QAbstractListModel>(
+      "com.embeddedcompositor.embeddedshell", 1, 0, "QAbstractListModel",
+      "only a property");
+
   qmlRegisterType<TaskSwitcherInterface>("com.embeddedcompositor.dbus", 1, 0,
                                          "TaskSwitcherInterface");
-  qDBusRegisterMetaType<TaskSwitcherInterface::TaskSwitcherEntry>();
+  qDBusRegisterMetaType<TaskSwitcherEntry>();
+  qDBusRegisterMetaType<QList<TaskSwitcherEntry>>();
+  qRegisterMetaType<TaskSwitcherEntry>("TaskSwitcherEntry");
+  qRegisterMetaType<QList<TaskSwitcherEntry>>("QList<TaskSwitcherEntry>");
 
   qmlRegisterType<GlobalOverlayInterface>("com.embeddedcompositor.dbus", 1, 0,
                                           "GlobalOverlayInterface");
